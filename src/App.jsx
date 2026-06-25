@@ -136,27 +136,35 @@ export default function App() {
         background: '#000', borderBottom: `1px solid ${COLORS.border}`,
         padding: '6px 0', overflow: 'hidden', whiteSpace: 'nowrap',
       }}>
-        <div style={{ display: 'inline-flex', gap: 32, paddingLeft: 16, animation: 'none' }}>
-          {[...FUEL_PRICES.slice(-5)].reverse().map((f, i) => (
-            <span key={i} style={{ fontSize: 11, color: COLORS.textMid }}>
-              <span style={{ color: COLORS.amber, fontWeight: 700 }}>DIESEL.FY{f.year}</span>{' '}
-              <span style={{ color: COLORS.textBright }}>{f.diesel.toFixed(2)}</span>{' '}
-              <span style={{ color: COLORS.green }}>KES/L</span>
-            </span>
-          ))}
-          {COMPANIES.map(c => {
-            const last = FINANCIALS[c][FINANCIALS[c].length - 1];
-            const prev = FINANCIALS[c][FINANCIALS[c].length - 2];
-            const up = last.grossMargin >= prev.grossMargin;
-            return (
-              <span key={c} style={{ fontSize: 11, color: COLORS.textMid }}>
-                <span style={{ color: COLORS.blue, fontWeight: 700 }}>{c}.GM</span>{' '}
-                <span style={{ color: up ? COLORS.green : COLORS.red }}>
-                  {last.grossMargin.toFixed(2)}% {up ? '\u25B2' : '\u25BC'}
+        {/* Duplicate content side-by-side for seamless loop */}
+        <div style={{ display: 'flex', width: 'max-content', animation: 'ticker-scroll 40s linear infinite' }}
+          onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
+          onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
+        >
+          {[0, 1].map(copy => (
+            <div key={copy} style={{ display: 'inline-flex', gap: 32, paddingLeft: 32 }}>
+              {[...FUEL_PRICES.slice(-5)].reverse().map((f, i) => (
+                <span key={i} style={{ fontSize: 11, color: COLORS.textBright }}>
+                  <span style={{ color: COLORS.amber, fontWeight: 700 }}>DIESEL.FY{f.year}</span>{' '}
+                  <span style={{ color: COLORS.textBright }}>{f.diesel.toFixed(2)}</span>{' '}
+                  <span style={{ color: COLORS.textBright }}>KES/L</span>
                 </span>
-              </span>
-            );
-          })}
+              ))}
+              {COMPANIES.map(c => {
+                const last = FINANCIALS[c][FINANCIALS[c].length - 1];
+                const prev = FINANCIALS[c][FINANCIALS[c].length - 2];
+                const up = last.grossMargin >= prev.grossMargin;
+                return (
+                  <span key={c} style={{ fontSize: 11, color: COLORS.textBright }}>
+                    <span style={{ color: COLORS.blue, fontWeight: 700 }}>{c}.GM</span>{' '}
+                    <span style={{ color: up ? COLORS.green : COLORS.red }}>
+                      {last.grossMargin.toFixed(2)}% {up ? '\u25B2' : '\u25BC'}
+                    </span>
+                  </span>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -211,13 +219,13 @@ export default function App() {
             YEAR RANGE
           </div>
           <div style={{ padding: '0 14px' }}>
-            <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 8 }}>
               {[[2016, 2025], [2016, 2019], [2020, 2022], [2023, 2025]].map(([s, e]) => (
                 <button
                   key={`${s}-${e}`}
                   onClick={() => setYearRange([s, e])}
                   style={{
-                    fontSize: 9, padding: '4px 6px', flex: '1 0 auto',
+                    fontSize: 8.5, padding: '4px 4px', whiteSpace: 'nowrap',
                     background: yearRange[0] === s && yearRange[1] === e ? COLORS.amber : COLORS.panelAlt,
                     color: yearRange[0] === s && yearRange[1] === e ? '#000' : COLORS.textMid,
                     border: `1px solid ${COLORS.border}`, fontFamily: FONT, cursor: 'pointer',
@@ -456,6 +464,10 @@ export default function App() {
 
       <style>{`
         @keyframes blink { 50% { opacity: 0; } }
+        @keyframes ticker-scroll {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
         input[type="range"] { -webkit-appearance: none; height: 4px; background: ${COLORS.border}; border-radius: 2px; }
         input[type="range"]::-webkit-slider-thumb {
           -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
