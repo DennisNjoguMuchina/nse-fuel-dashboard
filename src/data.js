@@ -54,9 +54,9 @@ export const INFLATION = {
 
 // Correlation coefficients: fuel price vs gross margin, FY2016-FY2025 (Pearson, via Excel CORREL)
 export const CORRELATIONS = {
-  SAFARICOM: { diesel: 0.57, petrol: 0.55 },
-  EABL: { diesel: -0.50, petrol: -0.47 },
-  KPLC: { diesel: -0.50, petrol: -0.53 },
+  SAFARICOM: { diesel: 0.59, petrol: 0.55 },
+  EABL: { diesel: -0.49, petrol: -0.47 },
+  KPLC: { diesel: -0.51, petrol: -0.53 },
 };
 
 // Per-company year-by-year financials
@@ -74,16 +74,16 @@ export const FINANCIALS = {
     { year: 2025, grossMargin: 73.99, realGrowth: 7.16, pat: 45757.2, ocf: 137693.9 },
   ],
   EABL: [
-    { year: 2016, grossMargin: 50.08, netMargin: 42.13, realGrowth: -6.49, pat: 10300, ocf: 18500 },
-    { year: 2017, grossMargin: 44.30, netMargin: 40.88, realGrowth: 1.20, pat: 8500, ocf: 13900 },
-    { year: 2018, grossMargin: 44.11, netMargin: 35.97, realGrowth: -0.05, pat: 7256, ocf: 13559 },
-    { year: 2019, grossMargin: 46.18, netMargin: 39.12, realGrowth: 7.17, pat: 11515, ocf: 22566 },
-    { year: 2020, grossMargin: 44.00, netMargin: 36.68, realGrowth: -14.55, pat: 7000, ocf: 3300 },
-    { year: 2021, grossMargin: 43.52, netMargin: 35.14, realGrowth: 9.00, pat: 6962, ocf: 14612 },
-    { year: 2022, grossMargin: 48.31, netMargin: 39.11, realGrowth: 19.62, pat: 15574, ocf: 25906 },
-    { year: 2023, grossMargin: 43.23, netMargin: 26.45, realGrowth: -7.45, pat: 12323, ocf: 11054 },
-    { year: 2024, grossMargin: 43.35, netMargin: 33.98, realGrowth: 8.71, pat: 10870, ocf: 22098 },
-    { year: 2025, grossMargin: 41.99, netMargin: 32.40, realGrowth: -0.32, pat: 12198, ocf: 23767 },
+    { year: 2016, grossMargin: 50.08, netMargin: 16.02, realGrowth: -6.49, pat: 10300, ocf: 18500 },
+    { year: 2017, grossMargin: 44.30, netMargin: 12.11, realGrowth: 1.20, pat: 8500, ocf: 13900 },
+    { year: 2018, grossMargin: 44.11, netMargin: 9.88, realGrowth: -0.05, pat: 7256, ocf: 13559 },
+    { year: 2019, grossMargin: 46.18, netMargin: 13.95, realGrowth: 7.17, pat: 11515, ocf: 22566 },
+    { year: 2020, grossMargin: 44.00, netMargin: 9.33, realGrowth: -14.55, pat: 7000, ocf: 3300 },
+    { year: 2021, grossMargin: 43.52, netMargin: 8.10, realGrowth: 9.00, pat: 6962, ocf: 14612 },
+    { year: 2022, grossMargin: 48.31, netMargin: 14.23, realGrowth: 19.62, pat: 15574, ocf: 25906 },
+    { year: 2023, grossMargin: 43.23, netMargin: 11.24, realGrowth: -7.45, pat: 12323, ocf: 11054 },
+    { year: 2024, grossMargin: 43.35, netMargin: 8.76, realGrowth: 8.71, pat: 10870, ocf: 22098 },
+    { year: 2025, grossMargin: 41.99, netMargin: 9.47, realGrowth: -0.32, pat: 12198, ocf: 23767 },
   ],
   KPLC: [
     { year: 2016, grossMargin: 35.16, realGrowth: -4.79, pat: 7197, ocf: 26611 },

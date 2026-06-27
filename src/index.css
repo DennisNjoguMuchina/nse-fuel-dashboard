@@ -7,3 +7,214 @@ body {
   font-family: 'JetBrains Mono', monospace;
   background: #0a0d0e;
 }
+
+/* ═══════════════════════════════════════════════════════
+   TICKER TAPE
+   ═══════════════════════════════════════════════════════ */
+.ticker-item {
+  font-size: 11px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   LAYOUT  (desktop default, overridden below per breakpoint)
+   ═══════════════════════════════════════════════════════ */
+
+/* Top-level flex wrapper */
+.dash-layout {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Left rail — fixed width sidebar on desktop */
+.left-rail {
+  width: 180px;
+  padding: 14px 0;
+}
+
+/* Each labelled section inside the rail */
+.rail-section {
+  padding: 0 14px;
+}
+
+/* Sections after the first get a top border + top spacing on desktop */
+.rail-section-border {
+  border-top: 1px solid #1f2a30;
+  margin-top: 10px;
+  padding-top: 20px;
+}
+
+/* Company buttons: vertical stack on desktop */
+.company-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Year-range preset buttons: 2-column grid on desktop */
+.range-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   STAT STRIP  — row on desktop, 2-col grid on mobile
+   ═══════════════════════════════════════════════════════ */
+.stat-strip {
+  /* Panel's internal style has display:flex / flex-direction:column.
+     This class overrides to a row — !important beats the inline spread. */
+  flex-direction: row !important;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CHART GRID + PANEL HEIGHTS
+   ═══════════════════════════════════════════════════════ */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+/* Heights live in CSS so media queries can override them cleanly */
+.chart-panel-lg {
+  height: 320px;
+}
+
+.chart-panel-md {
+  height: 300px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SYNTHESIS TABLE  — always horizontally scrollable
+   ═══════════════════════════════════════════════════════ */
+.synthesis-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  min-width: 0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   TABLET  601px – 1024px
+   Left rail → horizontal top bar
+   Chart grid → single column
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .dash-layout {
+    flex-direction: column;
+  }
+
+  .left-rail {
+    width: 100% !important;
+    padding: 10px 0 !important;
+    /* Override the inline borderRight; add a bottom border instead */
+    border-right: none !important;
+    border-bottom: 1px solid #1f2a30;
+    /* Horizontal scrollable bar */
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start;
+    overflow-x: auto;
+    box-sizing: border-box;
+  }
+
+  .rail-section {
+    flex-shrink: 0;
+    padding: 0 16px;
+  }
+
+  /* On tablet the sections sit side-by-side: top-border → left-border */
+  .rail-section-border {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+    border-left: 1px solid #1f2a30;
+    padding-left: 16px;
+  }
+
+  /* Company buttons become a horizontal flex row */
+  .company-buttons {
+    flex-direction: row;
+  }
+
+  /* The HoverTip wrapper divs inside company-buttons are width:100% by default —
+     override to auto so buttons don't stretch vertically in a row context */
+  .company-buttons > div {
+    width: auto !important;
+  }
+
+  .company-buttons button {
+    width: auto !important;
+    min-width: 96px;
+  }
+
+  /* Year-range grid → flex row */
+  .range-buttons {
+    display: flex !important;
+    grid-template-columns: unset !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 6px;
+    margin-bottom: 0;
+  }
+
+  .range-buttons > div {
+    width: auto !important;
+  }
+
+  .range-buttons button {
+    width: auto !important;
+    min-width: 72px;
+  }
+
+  /* Single-column chart grid */
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Slightly reduced chart heights on tablet */
+  .chart-panel-lg,
+  .chart-panel-md {
+    height: 260px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE  ≤ 600px
+   Ticker font smaller, stat strip → 2-col grid,
+   table scroll confirmed active
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  /* Smaller ticker to prevent cramping on narrow screens */
+  .ticker-item {
+    font-size: 9px;
+  }
+
+  /* Stat strip: flex row → 2-column grid */
+  .stat-strip {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    flex-direction: unset !important;
+  }
+
+  /* Last item (NARRATIVE) spans both columns */
+  .stat-strip > div:last-child {
+    grid-column: 1 / -1;
+    border-right: none;
+  }
+
+  /* Individual stat cells get a bottom separator in grid mode */
+  .stat-strip > div {
+    border-bottom: 1px solid #1f2a30;
+  }
+
+  /* Synthesis table: force a real scrollbar (not column squashing) */
+  .synthesis-wrap {
+    display: block;
+    overflow-x: scroll;
+  }
+
+  .synthesis-wrap table {
+    min-width: 480px;
+  }
+}
